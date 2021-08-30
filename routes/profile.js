@@ -5,7 +5,7 @@ const middleware = require('./middleware');
 const User = require('../models/User');
 
 
-router.get('/show', middleware , async (req, res) => {
+router.get('/profile', middleware , async (req, res) => {
 
     const user = await User.findOne({ _id: req.user._id })
     res.send(user);
