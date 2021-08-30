@@ -2,6 +2,9 @@ const router = require('express').Router();
 const User = require('../models/User');
 const {RegValidation, LogValidation} = require('../validation');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const dotenv = require("dotenv");
+dotenv.config();
 
 router.post('/register', async (req, res) => {
 
@@ -57,6 +60,7 @@ router.post('/login', async (req, res) => {
 
     const valid = LogValidation(req.body);
 
+    // Validation
     if(valid.error){
         return res.send({
             error : true,
@@ -64,7 +68,32 @@ router.post('/login', async (req, res) => {
         });
     }
 
+    // Check Email
+    const user = await User.findOne({ email: req.body.email })
+    if(!user){
+        return res.send({
+            error : true,
+            message : "email does not exist!"
+        });
+    }
+
+    // Check Password
+    const pass = await bcrypt.compare(req.body.password, user.password);
+    if(!pass){
+        return res.send({
+            error : true,
+            message : "wrong password!"
+        });
+    }
+
+    const token = await jwt.sign({_id: user._id}, process.env.SECRET);
     
+    return res.send({
+        error : false,
+        message : "logged in successfully!",
+        token : token
+    });
+
 
 });
 
