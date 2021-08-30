@@ -3,6 +3,7 @@ const app = express();
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const authRoute = require('./routes/auth');
+const profile = require('./routes/profile');
 
 dotenv.config();
 
@@ -25,5 +26,6 @@ app.use(express.json());
 
 
 app.use("/api/user", authRoute);
+app.use("/api/profile", profile);
 
 app.listen(8080, () => console.log("Server started on port 8080"));
