@@ -4,8 +4,14 @@ const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const authRoute = require('./routes/auth');
 const profile = require('./routes/profile');
+const cors = require('cors');
 
 dotenv.config();
+app.use(
+  cors({
+    origin: 'http://localhost:3000',
+  })
+);
 
 
 mongoose 
