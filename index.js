@@ -3,7 +3,13 @@ const app = express();
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const authRoute = require('./routes/auth');
-const profile = require('./routes/profile');
+
+const studentRoute = require('./routes/student');
+const mentorRoute = require('./routes/mentor');
+const adminRoute = require('./routes/admin');
+const officeAdminRoute = require('./routes/officeadmin');
+
+
 const cors = require('cors');
 
 dotenv.config();
@@ -32,6 +38,10 @@ app.use(express.json());
 
 
 app.use("/api/", authRoute);
-app.use("/api/user", profile);
+app.use("/api/student", studentRoute);
+app.use("/api/mentor", mentorRoute);
+app.use("/api/admin", adminRoute);
+app.use("/api/officeadmin", officeAdminRoute);
+
 
 app.listen(8080, () => console.log("Server started on port 8080"));
