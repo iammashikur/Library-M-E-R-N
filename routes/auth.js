@@ -11,6 +11,7 @@ router.post('/register', async (req, res) => {
     const valid = RegValidation(req.body);
     const email = await User.findOne({ email: req.body.email })
     const phone = await User.findOne({ phone: req.body.phone })
+    const nid   = await User.findOne({ phone: req.body.nid   })
 
     if(email){
         return res.send({
@@ -23,6 +24,13 @@ router.post('/register', async (req, res) => {
         return res.send({
             error : true,
             message : "phone already exist!"
+        });
+    }
+
+    if(nid){
+        return res.send({
+            error : true,
+            message : "nid already exist!"
         });
     }
 
@@ -40,6 +48,8 @@ router.post('/register', async (req, res) => {
         name: req.body.name,
         email: req.body.email,
         phone: req.body.phone,
+        address: req.body.address,
+        nid: req.body.nid,
         password: pass,
     });
 

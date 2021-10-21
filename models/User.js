@@ -28,6 +28,16 @@ const userSchema = new mongoose.Schema({
         max:255,
         unique: false,
     },
+    address : {
+        type: String,
+        default: null,
+        unique: false,
+    },
+    nid : {
+        type: Number,
+        default: null,
+        unique: true,
+    },
     date : {
         type: Date,
         default: Date.now,
@@ -37,8 +47,6 @@ const userSchema = new mongoose.Schema({
         type: Number,
         default: 1
     }
-
-
 
 });
 
